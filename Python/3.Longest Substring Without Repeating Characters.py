@@ -21,27 +21,23 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        dict = {}
-        max_len, tmp_len = 0, 0
-        i, j = 0, 0
-        for j in range(0, len(s)):
-            n = s[j]
-            if n in dict:
-                if max_len < tmp_len:
-                    max_len = tmp_len
+        if s is None or len(s) == 0:
+            return 0
 
-                pre = dict[n]
-                for k in range(i, pre + 1):
-                    dict.pop(s[k])
-
-                i = pre + 1
-                tmp_len = j - i + 1
+        dic, max_length, tmp_length = {}, 0, 0
+        sub_start = 0
+        for i in range(0, len(s)):
+            letter = s[i]
+            if letter not in dic:
+                tmp_length += 1
+                dic[letter] = i
             else:
-                tmp_len += 1
-            dict[n] = j
-            j += 1
+                for j in range(sub_start, dic[letter]):
+                    del dic[s[j]]
+                sub_start = dic[letter] + 1
+                dic[letter] = i
+                tmp_length = i - sub_start + 1
 
-        if max_len < tmp_len:
-            max_len = tmp_len
-
-        return max_len
+            if tmp_length > max_length:
+                max_length = tmp_length
+        return max_length
