@@ -21,5 +21,10 @@ class Solution(object):
         """
         if s is None or len(s) == 0:
             return ""
-        a = s.split(" ")
-        return " ".join(a[::-1])
+
+        a = s.strip().split(" ")
+        r = ""
+        for c in a:
+            if c != "":
+                r = c + " " + r
+        return r.strip()
