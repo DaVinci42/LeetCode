@@ -27,35 +27,37 @@ cache.get(4);       // returns 4
 """
 
 
-class LRUCache(object):
+class DoubleLinkedNode:
 
-    capacity, k_v_dict, keys = 0, {}, []
+    def __init__(self, key, val):
+        self.key = key
+        self.val = val
+        self.pre = None
+        self.next = None
+
+
+class LRUCache(object):
 
     def __init__(self, capacity):
         """
         :type capacity: int
         """
         self.capacity = capacity
-        self.k_v_dict = {}
-        self.keys = []
+        self.dic = {}
+        self.head = None
+        self.tail = None
 
     def get(self, key):
         """
         :type key: int
         :rtype: int
         """
-        value = 0
-        if key in self.k_v_dict:
-            value = self.k_v_dict[key]
-            index = 0
-            for i, k in enumerate(self.keys):
-                if k == key:
-                    index = i
-                    break
-            del self.keys[index]
-            self.keys.append(key)
-        else:
-            value = -1
+        value = -1
+        if key in self.dic:
+            node = self.dic[key]
+            value = node.val
+            self._remove_node(node)
+            self._add_node(node)
         return value
 
     def put(self, key, value):
@@ -64,22 +66,53 @@ class LRUCache(object):
         :type value: int
         :rtype: void
         """
-        if key in self.k_v_dict:
-            index = 0
-            for i, k in enumerate(self.keys):
-                if key == k:
-                    index = i
-                    break
-            del self.keys[index]
-            self.keys.append(key)
-            self.k_v_dict[key] = value
+        if key in self.dic:
+            node = self.dic[key]
+            node.val = value
+            self._remove_node(node)
+            self._add_node(node)
         else:
-            self.k_v_dict[key] = value
-            self.keys.append(key)
-            length = len(self.keys)
-            if length > self.capacity:
-                del_keys = self.keys[:length - self.capacity]
-                for k in del_keys:
-                    if k in self.k_v_dict:
-                        del self.k_v_dict[k]
-                self.keys = self.keys[length - self.capacity:]
+            if len(self.dic) == self.capacity:
+                del self.dic[self.head.key]
+                self._remove_node(self.head)
+            node = DoubleLinkedNode(key, value)
+            self.dic[key] = node
+            self._add_node(node)
+
+    def _remove_node(self, node):
+        if node.pre is not None and node.next is not None:
+            node.pre.next = node.next
+            node.next.pre = node.pre
+        else:
+            if node is self.head:
+                self.head = node.next
+                if self.head is not None:
+                    self.head.pre = None
+            if node is self.tail:
+                self.tail = node.pre
+                if self.tail is not None:
+                    self.tail.next = None
+
+    def _add_node(self, node):
+        if self.tail is None:
+            self.head = node
+            self.tail = node
+            self.head.pre = None
+            self.tail.next = None
+        else:
+            self.tail.next = node
+            node.pre = self.tail
+            self.tail = node
+            self.tail.next = None
+
+    def _print_self(self):
+        for i in self.dic:
+            print("dict: ", i, self.dic[i].val)
+        node = self.head
+        while node is not None:
+            print("order: ", node.val)
+            node = node.next
+        node = self.tail
+        while node is not None:
+            print("reverse: ", node.val)
+            node = node.pre
