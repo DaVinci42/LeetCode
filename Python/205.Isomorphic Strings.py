@@ -33,30 +33,17 @@ class Solution(object):
         if len(s) == 0 or len(t) == 0:
             return len(s) == 0 and len(t) == 0
 
-        s_dict = {}
+        s_to_t_dict = {}
+        t_to_s_dict = {}
+
         for i in range(0, len(s)):
-            c = s[i]
-            if c not in s_dict:
-                c_tuple = ()
-                c_tuple += (i,)
-                s_dict[c] = c_tuple
-            else:
-                s_dict[c] += (i,)
-
-        t_dict = {}
-        for i in range(0, len(t)):
-            c = t[i]
-            if c not in t_dict:
-                c_tuple = ()
-                c_tuple += (i,)
-                t_dict[c] = c_tuple
-            else:
-                t_dict[c] += (i,)
-
-        s_set, t_set = set(), set()
-        for c in s_dict:
-            s_set.add(s_dict[c])
-
-        for c in t_dict:
-            t_set.add(t_dict[c])
-        return s_set == t_set
+            c_s = s[i]
+            c_t = t[i]
+            if c_s not in s_to_t_dict and c_t not in t_to_s_dict:
+                s_to_t_dict[c_s] = c_t
+                t_to_s_dict[c_t] = c_s
+            elif c_s in s_to_t_dict and s_to_t_dict[c_s] != c_t:
+                return False
+            elif c_t in t_to_s_dict and t_to_s_dict[c_t] != c_s:
+                return False
+        return True
