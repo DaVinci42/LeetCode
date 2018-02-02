@@ -1,66 +1,45 @@
 """
-413. Arithmetic Slices
+416. Partition Equal Subset Sum
 
-A sequence of number is called arithmetic if it consists of at least three elements
-and if the difference between any two consecutive elements is the same.
+Given a non-empty array containing only positive integers,
+find if the array can be partitioned into two subsets such that the sum of elements in both subsets is equal.
 
-For example, these are arithmetic sequence:
+Note:
+Each of the array element will not exceed 100.
+The array size will not exceed 200.
+Example 1:
 
-1, 3, 5, 7, 9
-7, 7, 7, 7
-3, -1, -5, -9
-The following sequence is not arithmetic.
+Input: [1, 5, 11, 5]
 
-1, 1, 2, 5, 7
+Output: true
 
-A zero-indexed array A consisting of N numbers is given.
-A slice of that array is any pair of integers (P, Q) such that 0 <= P < Q < N.
+Explanation: The array can be partitioned as [1, 5, 5] and [11].
+Example 2:
 
-A slice (P, Q) of array A is called arithmetic if the sequence:
-A[P], A[p + 1], ..., A[Q - 1], A[Q] is arithmetic. In particular, this means that P + 1 < Q.
+Input: [1, 2, 3, 5]
 
-The function should return the number of arithmetic slices in the array A.
+Output: false
 
-
-Example:
-
-A = [1, 2, 3, 4]
-
-return: 3, for 3 arithmetic slices in A: [1, 2, 3], [2, 3, 4] and [1, 2, 3, 4] itself.
+Explanation: The array cannot be partitioned into equal sum subsets.
 """
 
 
 class Solution:
 
-    def numberOfArithmeticSlices(self, A):
+    def canPartition(self, nums):
         """
-        :type A: List[int]
-        :rtype: int
+        :type nums: List[int]
+        :rtype: bool
         """
-        if A is None or len(A) < 3:
-            return 0
-        diff_list = list()
-        for i in range(1, len(A)):
-            diff = A[i] - A[i - 1]
-            diff_list.append(diff)
-        result = 0
-        pre_diff, repeat_count = diff_list[0], 0
-        for d in diff_list:
-            if d == pre_diff:
-                repeat_count += 1
-            else:
-                if repeat_count >= 2:
-                    result += self.combine_in_count(repeat_count + 1)
-                pre_diff = d
-                repeat_count = 1
-        if repeat_count >= 2:
-            result += self.combine_in_count(repeat_count + 1)
-        return result
+        if nums is None or len(nums) == 0:
+            return False
+        s = sum(nums)
+        current_sum = 0
+        for i, v in enumerate(nums):
+            current_sum += v
+            if current_sum * 2 == s:
+                return True
+        return False
 
-    def combine_in_count(self, count):
-        if count < 3:
-            return 0
-        elif count == 3:
-            return 1
-        else:
-            return int((1 + count - 2) / 2 * (count - 2))
+s = Solution()
+print(s.canPartition([1, 5, 11, 5]))
