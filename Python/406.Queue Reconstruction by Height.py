@@ -33,10 +33,10 @@ class Solution:
 
         height_dict = dict()
         for p in people:
-            h = p[0]
-            group = set() if h not in height_dict else height_dict[h]
-            group.add((h, p[1]))
-            height_dict[h] = group
+            h, k = p
+            greater_set = set() if h not in height_dict else height_dict[h]
+            greater_set.add(k)
+            height_dict[h] = greater_set
 
         heights = list(height_dict.keys())
         heights.sort()
@@ -45,14 +45,12 @@ class Solution:
         index_list = [i for i in range(0, people_count)]
         result_queue = [0] * people_count
 
-        for i in heights:
-            group = list(height_dict[i])
-            group.sort()
-            reversed_p = group[::-1]
-            for p in reversed_p:
-                k = p[1]
+        for h in heights:
+            greater_list = list(height_dict[h])
+            greater_list.sort()
+            reversed_list = greater_list[::-1]
+            for k in reversed_list:
                 target = index_list[k]
-                result_queue[target] = p
+                result_queue[target] = list([h, k])
                 del index_list[k]
-
-        return list(map(lambda p: list([p[0], p[1]]), result_queue))
+        return result_queue
