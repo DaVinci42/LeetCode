@@ -41,11 +41,11 @@ class Solution:
             diagonals.append(row)
 
         result = list()
-        should_reversed = True
-        for r in diagonals:
-            d = r[::-1] if should_reversed else r
-            result += d
-            should_reversed = not should_reversed
+        for i, r in enumerate(diagonals):
+            if i % 2 == 0:
+                result += r[::-1]
+            else:
+                result += r
         return result
 
     # top-right to bottom-left
