@@ -28,23 +28,27 @@ class TreeNode:
 
 
 class Solution:
+
     def leafSimilar(self, root1, root2):
         """
         :type root1: TreeNode
         :type root2: TreeNode
         :rtype: bool
         """
-        return self.leaf_of_tree(root1) == self.leaf_of_tree(root2)
+        return self.leafs_of_tree(root1) == self.leafs_of_tree(root2)
 
-    def leaf_of_tree(self, root):
-        result = list()
+    def leafs_of_tree(self, root):
         if not root:
-            return result
-        if root.left is None and root.right is None:
-            result.append(root.val)
+            return list()
 
-        if root.right is not None:
-            result += self.leaf_of_tree(root.right)
-        if root.left is not None:
-            result += self.leaf_of_tree(root.left)
+        result, task = list(), [root]
+        while task:
+            last = task.pop()
+            if last.left is None and last.right is None:
+                result.append(last.val)
+                continue
+            if last.right is not None:
+                task.append(last.right)
+            if last.left is not None:
+                task.append(last.left)
         return result
