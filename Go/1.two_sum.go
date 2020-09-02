@@ -1,7 +1,5 @@
 package main
 
-func main() {}
-
 func twoSum(nums []int, target int) []int {
 	if nums == nil {
 		return []int{}
