@@ -26,13 +26,13 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 			sum += 1
 		}
 		carry = sum >= 10
-		n := ListNode{sum % 10, nil}
+		n := &ListNode{sum % 10, nil}
 		if head == nil {
-			head = &n
-			preNode = &n
+			head = n
+			preNode = n
 		} else {
-			preNode.Next = &n
-			preNode = &n
+			preNode.Next = n
+			preNode = n
 		}
 	}
 	return head
