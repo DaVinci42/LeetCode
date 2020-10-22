@@ -11,8 +11,8 @@ class TreeNode:
 
 
 class Solution:
-    def inorderTraversal(self, root: TreeNode) -> List[int]:
+    def postorderTraversal(self, root: TreeNode) -> List[int]:
         if not root:
             return []
 
-        return self.inorderTraversal(root.left) + [root.val] + self.inorderTraversal(root.right)
+        return self.postorderTraversal(root.left) + self.postorderTraversal(root.right) + [root.val]

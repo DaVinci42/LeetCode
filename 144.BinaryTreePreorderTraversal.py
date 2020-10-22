@@ -14,6 +14,5 @@ class Solution:
     def preorderTraversal(self, root: TreeNode) -> List[int]:
         if not root:
             return []
-        l = [] if not root.left else self.preorderTraversal(root.left)
-        r = [] if not root.right else self.preorderTraversal(root.right)
-        return [root.val] + l + r
+
+        return [root.val] + self.preorderTraversal(root.left) + self.preorderTraversal(root.right)
