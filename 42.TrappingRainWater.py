@@ -32,6 +32,6 @@ class Solution:
             if h >= minH:
                 continue
             else:
-                area += (minH - h)
+                area += minH - h
                 print(i, minH, h)
         return area

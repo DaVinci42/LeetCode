@@ -10,6 +10,6 @@ class Solution:
             c = strs[0][i]
             for s in strs:
                 if i >= len(s) or s[i] != c:
-                    return ''.join(result)
+                    return "".join(result)
             result.append(c)
-        return ''.join(result)
+        return "".join(result)

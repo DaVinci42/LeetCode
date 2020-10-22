@@ -5,10 +5,10 @@ class Solution:
             return 0
 
         negative = False
-        if s[0] == '-':
+        if s[0] == "-":
             negative = True
             s = s[1:]
-        elif s[0] == '+':
+        elif s[0] == "+":
             s = s[1:]
 
         l = []
@@ -20,7 +20,7 @@ class Solution:
         if not l:
             return 0
 
-        s = int(''.join(l))
+        s = int("".join(l))
         if negative:
             s = -1 * s
 

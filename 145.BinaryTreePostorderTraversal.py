@@ -14,4 +14,8 @@ class Solution:
         if not root:
             return []
 
-        return self.postorderTraversal(root.left) + self.postorderTraversal(root.right) + [root.val]
+        return (
+            self.postorderTraversal(root.left)
+            + self.postorderTraversal(root.right)
+            + [root.val]
+        )

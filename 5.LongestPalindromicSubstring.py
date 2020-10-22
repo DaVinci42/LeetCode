@@ -18,7 +18,7 @@ class Solution:
                 self.records.add((n_l, n_r))
             self.cache.add((left, right))
         result = max(self.cache, key=lambda t: t[1] - t[0])
-        return s[result[0]:result[1] + 1]
+        return s[result[0] : result[1] + 1]
 
     def grow(self, left, right, s) -> Tuple[int, int]:
         if left > 0 and right < len(s) - 1 and s[left - 1] == s[right + 1]:

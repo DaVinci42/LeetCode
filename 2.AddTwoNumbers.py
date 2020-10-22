@@ -3,11 +3,7 @@ class Solution:
         if not s:
             return True
 
-        map = {
-            '(': ')',
-            '[': ']',
-            '{': '}'
-        }
+        map = {"(": ")", "[": "]", "{": "}"}
         stack = []
         for c in s:
             if c not in map:

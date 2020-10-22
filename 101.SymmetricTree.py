@@ -17,4 +17,6 @@ class Solution:
             return not left and not right
         if left.val != right.val:
             return False
-        return self.isSymmetricTrees(left.left, right.right) and self.isSymmetricTrees(left.right, right.left)
+        return self.isSymmetricTrees(left.left, right.right) and self.isSymmetricTrees(
+            left.right, right.left
+        )

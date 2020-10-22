@@ -17,5 +17,5 @@ class Solution:
         return TreeNode(
             postorder[-1],
             self.buildTree(inorder[:indexRoot], postorder[:indexRoot]),
-            self.buildTree(inorder[indexRoot + 1:], postorder[indexRoot:-1])
+            self.buildTree(inorder[indexRoot + 1 :], postorder[indexRoot:-1]),
         )

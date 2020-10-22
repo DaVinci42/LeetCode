@@ -11,7 +11,7 @@ class Solution:
             return None
 
         right = head
-        for _ in range(0, n-1):
+        for _ in range(0, n - 1):
             if right.next:
                 right = right.next
             else:

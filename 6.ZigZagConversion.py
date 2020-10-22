@@ -7,8 +7,10 @@ class Solution:
             return s
 
         unit = int(math.ceil(len(s) / (2 * numRows - 2)))
-        groups = [s[i * 2 * (numRows - 1): min(len(s), (i + 1) * 2 * (numRows - 1))]
-                  for i in range(0, unit)]
+        groups = [
+            s[i * 2 * (numRows - 1) : min(len(s), (i + 1) * 2 * (numRows - 1))]
+            for i in range(0, unit)
+        ]
 
         output = []
         for i in range(0, numRows):
