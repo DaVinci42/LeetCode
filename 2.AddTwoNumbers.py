@@ -1,14 +1,32 @@
-class Solution:
-    def isValid(self, s: str) -> bool:
-        if not s:
-            return True
+# Definition for singly-linked list.
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
 
-        map = {"(": ")", "[": "]", "{": "}"}
-        stack = []
-        for c in s:
-            if c not in map:
-                if not stack or map[stack.pop()] != c:
-                    return False
+
+class Solution:
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        carry = False
+        left, right = l1, l2
+        head: ListNode = None
+        preNode: ListNode = None
+        while left or right or carry:
+            sum = 0
+            if left:
+                sum += left.val
+                left = left.next
+            if right:
+                sum += right.val
+                right = right.next
+            if carry:
+                sum += 1
+            carry = sum >= 10
+            n = ListNode(sum % 10)
+            if not preNode:
+                preNode = n
+                head = n
             else:
-                stack.append(c)
-        return not stack
+                preNode.next = n
+                preNode = n
+        return head
