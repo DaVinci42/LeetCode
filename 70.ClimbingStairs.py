@@ -1,24 +1,13 @@
-from typing import Dict
-
-
 class Solution:
     def climbStairs(self, n: int) -> int:
+        if n < 1:
+            return 0
+        elif n == 1:
+            return 1
+        elif n == 2:
+            return 2
 
-        cache: Dict[int, int] = {}
-
-        def dp(m: int) -> int:
-            if m <= 0:
-                return 0
-            if m == 1:
-                return 1
-            elif m == 2:
-                return 2
-            elif m in cache:
-                return cache[m]
-
-            res = dp(m - 1) + dp(m - 2)
-            cache[m] = res
-            return res
-
-        return dp(n)
-
+        c1, c2 = 1, 2
+        for _ in range(n - 2):
+            c1, c2 = c2, c1 + c2
+        return c2
