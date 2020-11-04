@@ -10,10 +10,15 @@ class Solution:
                 return cache[(m, n)]
 
             if m == len(grid) - 1 and n < len(grid[m]) - 1:
-                return grid[m][n] + dp(m, n + 1)
+                res = grid[m][n] + dp(m, n + 1)
+                cache[(m, n)] = res
+                return res
             elif m < len(grid) - 1 and n == len(grid[m]) - 1:
-                return grid[m][n] + dp(m + 1, n)
+                res = grid[m][n] + dp(m + 1, n)
+                cache[(m, n)] = res
+                return res
             elif m == len(grid) - 1 and n == len(grid[m]) - 1:
+                cache[(m, n)] = grid[m][n]
                 return grid[m][n]
 
             res = grid[m][n] + min(dp(m + 1, n), dp(m, n + 1))
