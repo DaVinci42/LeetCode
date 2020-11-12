@@ -5,19 +5,16 @@ class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
         if not n:
             return []
-        self.result = set()
-        self.generate(n, 0, "")
-        return list(self.result)
 
-    def generate(self, allowedLeft: int, allowedRight: int, s: str):
-        if not allowedLeft and not allowedRight:
-            self.result.add(s)
-            return
+        res = set()
 
-        for i in range(1, allowedLeft + 1):
-            s1 = s[:]
-            self.generate(allowedLeft - i, allowedRight + i - 1, s1 + "(" * i + ")")
+        def generate(left: int, right: int, s: str):
+            if not left and not right:
+                res.add(s)
+            if left:
+                generate(left - 1, right + 1, s + "(")
+            if right:
+                generate(left, right - 1, s + ")")
 
-        for i in range(1, allowedRight + 1):
-            s1 = s[:]
-            self.generate(allowedLeft, allowedRight - i, s1 + ")" * i)
+        generate(n, 0, "")
+        return list(res)
