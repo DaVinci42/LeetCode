@@ -4,6 +4,3 @@ class Solution:
             return s
 
         return " ".join(list(filter(lambda c: c, s.split(" ")))[::-1])
-
-s = Solution()
-print(s.reverseWords("the sky is blue"))
