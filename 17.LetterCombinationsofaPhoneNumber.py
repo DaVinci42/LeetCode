@@ -1,4 +1,5 @@
 from typing import List
+import itertools
 
 
 class Solution:
@@ -15,12 +16,9 @@ class Solution:
             "8": ["t", "u", "v"],
             "9": ["w", "x", "y", "z"],
         }
-        result = []
-        for d in digits:
-            result = self.combine(result, digit_map[d])
-        return result
-
-    def combine(self, left: List[str], right: List[str]) -> List[str]:
-        if not left:
-            return right
-        return [a + b for a in left for b in right]
+        return list(
+            map(
+                lambda t: "".join(t),
+                itertools.product(*map(lambda d: digit_map[d], digits)),
+            )
+        )
