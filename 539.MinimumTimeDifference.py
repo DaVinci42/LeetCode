@@ -7,7 +7,10 @@ class Solution:
     def findMinDifference(self, timePoints: List[str]) -> int:
         def convert(s: str) -> List[int]:
             h, m = int(s[:2]), int(s[-2:])
-            return [h * 60 + m, (h + 24) * 60 + m]
+            if h >= 12:
+                return [h * 60 + m]
+            else:
+                return [h * 60 + m, (h + 24) * 60 + m]
 
         timeList = sorted(chain(*map(convert, timePoints)))
 
